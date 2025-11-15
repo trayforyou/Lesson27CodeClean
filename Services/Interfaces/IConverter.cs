@@ -1,4 +1,4 @@
-﻿namespace Lesson27.Models.Interfaces
+﻿namespace Lesson27.Services.Interfaces
 {
     public interface IConverter
     {

@@ -1,4 +1,4 @@
-﻿namespace Lesson27
+﻿namespace Lesson27.Services.Interfaces
 {
     public interface IHasher
     {

@@ -1,7 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿using Lesson27.Services.Interfaces;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace Lesson27
+namespace Lesson27.Services
 {
     public class HasherSHA256 : IHasher
     {

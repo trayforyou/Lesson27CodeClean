@@ -1,7 +1,8 @@
-﻿using Lesson27.UIElements;
-using Lesson27.Views;
+﻿using Lesson27.Views;
 using Lesson27.Models;
 using Lesson27.Presenters;
+using Lesson27.Services;
+using Lesson27.Services.Infrastructure;
 
 namespace Lesson27
 {
@@ -9,16 +10,12 @@ namespace Lesson27
     {
         static void Main(string[] args)
         {
-            Menu menu = new Menu(new TextBox(), new Button(), new MessageBox());
-            HasherSHA256 hasher = new HasherSHA256();
-            RequestConverter requestConverter = new RequestConverter(hasher);
-            ConnectionGenerator connectionGenerator = new ConnectionGenerator();
+            Repository repository = new Repository(new RequestConverter(), new ConnectionGenerator(), new DataService());
+            Service service = new Service(new HasherSHA256(), repository);
+            Presenter presenter = new Presenter(service, new Validator());
 
-            ValidatorModel validator = new ValidatorModel();
-            DataBaseHandler dataBaseHandler = new DataBaseHandler(requestConverter, connectionGenerator);
-
-            ValidatorPresenter validatorPresenter = new ValidatorPresenter(menu, validator);
-            DataBasePresenter dataBasePresenter = new DataBasePresenter(validator, dataBaseHandler, menu);
+            Menu menu = new Menu(new TextBox(), new MessageBox(), presenter);
+            presenter.InitializeMessager(menu);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Lesson27.Models.Interfaces;
+﻿using Lesson27.Services.Infrastructure.Interfaces;
 using System.Reflection;
 
-namespace Lesson27.Models
+namespace Lesson27.Services
 {
     public class ConnectionGenerator : IConnectionGenerator
     {

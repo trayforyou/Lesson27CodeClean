@@ -1,4 +1,4 @@
-﻿namespace Lesson27.Models.Interfaces
+﻿namespace Lesson27.Services.Infrastructure.Interfaces
 {
     public interface IConnectionGenerator
     {

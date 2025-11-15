@@ -1,27 +1,31 @@
-﻿using Lesson27.UIElements.Interfaces;
+﻿using Lesson27.Presenters;
 
 namespace Lesson27.Views
 {
-    public class Menu : IUserInterfaceView
+    public class Menu : IMessager
     {
-        private readonly IMessageBox _messageBox;
-        private readonly ITextBox _textBox;
-        private readonly IButton _button;
+        private readonly MessageBox _messageBox;
+        private readonly TextBox _textBox;
+        private readonly Presenter _presenter;
 
-        public event Action ButtonClicked;
-
-        public Menu(ITextBox textBox, IButton button, IMessageBox messageBox)
+        public Menu(TextBox textBox, MessageBox messageBox, Presenter presenter)
         {
             _textBox = textBox ?? throw new ArgumentNullException(nameof(textBox));
-            _button = button ?? throw new ArgumentNullException(nameof(button));
             _messageBox = messageBox ?? throw new ArgumentNullException(nameof(messageBox));
-
-            button.ButtonClicked += () => ButtonClicked?.Invoke();
+            _presenter = presenter ?? throw new ArgumentNullException(nameof(_presenter));
         }
 
-        public string UserInput => _textBox.Text;
+        public void ButtonClick()
+        {
+            _presenter.Handle(_textBox.Input);
+        }
 
-        public void SetMessage(string message) =>
-            _messageBox.Message = string.IsNullOrWhiteSpace(message) ? throw new ArgumentException("Сообщение пустое") : message;
+        public void SetMessage(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+                throw new ArgumentNullException(nameof(message));
+
+            _messageBox.Set(message);
+        }
     }
 }
